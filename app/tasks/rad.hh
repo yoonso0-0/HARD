@@ -499,7 +499,8 @@ getDiff(typename mesh<D>::template accessor<ro> m,
     forall(i, (m.template cells<ax::x, dm::quantities>()), "getDiff") {
       auto const kappa = *kappa_a;
       const double clight = hard::constants::cgs::speed_of_light;
-      Diff(i) = clight * lambda(i) / (kappa * r(i));
+      // Diff(i) = clight * lambda(i) / (kappa * r(i));
+      Diff(i) = 1.0;
     }; // for
   }
   else if constexpr(D == 2) {
@@ -511,7 +512,8 @@ getDiff(typename mesh<D>::template accessor<ro> m,
       auto const kappa = *kappa_a;
       const double clight = hard::constants::cgs::speed_of_light;
       auto [j, i] = ji;
-      Diff(i, j) = clight * lambda(i, j) / (kappa * r(i, j));
+      // Diff(i, j) = clight * lambda(i, j) / (kappa * r(i, j));
+      Diff(i, j) = 1.0;
     }; // forall
   }
   else /* D == 3 */ {

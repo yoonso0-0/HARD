@@ -106,30 +106,30 @@ explicit_source_terms(control_policy<state, D> & cp) {
     s.m, s.velocity_gradient(s.m), s.velocity(s.m));
 
   // Compute explicit source terms and store them into (dU_dt)_explicit
-  if constexpr(Stage == time_stepper::rk_stage::First) {
-    flecsi::execute<task::rad::explicitSourceUpdate<D>,
-      flecsi::default_accelerator>(s.m,
-      s.velocity(s.m),
-      s.radiation_force(s.m),
-      s.radiation_pressure_tensor(s.m),
-      s.velocity_gradient(s.m),
-      //
-      s.dt_momentum_density(s.m),
-      s.dt_total_energy_density(s.m),
-      s.dt_radiation_energy_density(s.m));
-  }
-  else if constexpr(Stage == time_stepper::rk_stage::Second) {
-    flecsi::execute<task::rad::explicitSourceUpdate<D>,
-      flecsi::default_accelerator>(s.m,
-      s.velocity(s.m),
-      s.radiation_force(s.m),
-      s.radiation_pressure_tensor(s.m),
-      s.velocity_gradient(s.m),
-      //
-      s.dt_momentum_density_2(s.m),
-      s.dt_total_energy_density_2(s.m),
-      s.dt_radiation_energy_density_2(s.m));
-  }
+  // if constexpr(Stage == time_stepper::rk_stage::First) {
+  //   flecsi::execute<task::rad::explicitSourceUpdate<D>,
+  //     flecsi::default_accelerator>(s.m,
+  //     s.velocity(s.m),
+  //     s.radiation_force(s.m),
+  //     s.radiation_pressure_tensor(s.m),
+  //     s.velocity_gradient(s.m),
+  //     //
+  //     s.dt_momentum_density(s.m),
+  //     s.dt_total_energy_density(s.m),
+  //     s.dt_radiation_energy_density(s.m));
+  // }
+  // else if constexpr(Stage == time_stepper::rk_stage::Second) {
+  //   flecsi::execute<task::rad::explicitSourceUpdate<D>,
+  //     flecsi::default_accelerator>(s.m,
+  //     s.velocity(s.m),
+  //     s.radiation_force(s.m),
+  //     s.radiation_pressure_tensor(s.m),
+  //     s.velocity_gradient(s.m),
+  //     //
+  //     s.dt_momentum_density_2(s.m),
+  //     s.dt_total_energy_density_2(s.m),
+  //     s.dt_radiation_energy_density_2(s.m));
+  // }
 
 #endif
 }
@@ -197,34 +197,34 @@ implicit_source_terms(control_policy<state, D> & cp) {
   auto & s = cp.state();
 
   // Compute and store (de_dt, dE_dt)_implicit from matter-radiation coupling.
-  if constexpr(Stage == time_stepper::rk_stage::First) {
-    flecsi::execute<task::rad_root::update_energy_density<D>,
-      flecsi::default_accelerator>(s.m,
-      s.mass_density(s.m),
-      s.velocity(s.m),
-      s.total_energy_density(s.m),
-      s.radiation_energy_density(s.m),
-      gamma(s.gt),
-      kappa(s.gt),
-      particle_mass(s.gt),
-      s.dt_weighted(s.gt),
-      s.dt_total_energy_density_implicit(s.m),
-      s.dt_radiation_energy_density_implicit(s.m));
-  }
-  else if constexpr(Stage == time_stepper::rk_stage::Second) {
-    flecsi::execute<task::rad_root::update_energy_density<D>,
-      flecsi::default_accelerator>(s.m,
-      s.mass_density(s.m),
-      s.velocity(s.m),
-      s.total_energy_density(s.m),
-      s.radiation_energy_density(s.m),
-      gamma(s.gt),
-      kappa(s.gt),
-      particle_mass(s.gt),
-      s.dt_weighted(s.gt),
-      s.dt_total_energy_density_implicit_2(s.m),
-      s.dt_radiation_energy_density_implicit_2(s.m));
-  }
+  // if constexpr(Stage == time_stepper::rk_stage::First) {
+  //   flecsi::execute<task::rad_root::update_energy_density<D>,
+  //     flecsi::default_accelerator>(s.m,
+  //     s.mass_density(s.m),
+  //     s.velocity(s.m),
+  //     s.total_energy_density(s.m),
+  //     s.radiation_energy_density(s.m),
+  //     gamma(s.gt),
+  //     kappa(s.gt),
+  //     particle_mass(s.gt),
+  //     s.dt_weighted(s.gt),
+  //     s.dt_total_energy_density_implicit(s.m),
+  //     s.dt_radiation_energy_density_implicit(s.m));
+  // }
+  // else if constexpr(Stage == time_stepper::rk_stage::Second) {
+  //   flecsi::execute<task::rad_root::update_energy_density<D>,
+  //     flecsi::default_accelerator>(s.m,
+  //     s.mass_density(s.m),
+  //     s.velocity(s.m),
+  //     s.total_energy_density(s.m),
+  //     s.radiation_energy_density(s.m),
+  //     gamma(s.gt),
+  //     kappa(s.gt),
+  //     particle_mass(s.gt),
+  //     s.dt_weighted(s.gt),
+  //     s.dt_total_energy_density_implicit_2(s.m),
+  //     s.dt_radiation_energy_density_implicit_2(s.m));
+  // }
 
 #endif
 }
