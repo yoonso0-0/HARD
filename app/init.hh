@@ -226,6 +226,15 @@ initialize(control_policy<state, D> & cp) {
       gamma(s.gt),
       particle_mass(s.gt));
   }
+  else if(config["problem"].as<std::string>() == "radiation_diffusion") {
+    execute<tasks::initial_data::radiation_diffusion<D>>(s.m,
+      s.mass_density(s.m),
+      s.momentum_density(s.m),
+      s.total_energy_density(s.m),
+      s.radiation_energy_density(s.m),
+      gamma(s.gt),
+      particle_mass(s.gt));
+  }
   else if(config["problem"].as<std::string>() == "rad-rh") {
     execute<tasks::initial_data::
         rad_RH<tasks::initial_data::rad_shock::rad_rankine_hugoniot, D>>(s.m,

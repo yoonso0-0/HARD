@@ -5,6 +5,7 @@
 #include "kh_instability.hh"
 #include "lw_implosion.hh"
 #include "rad_rank_hugoniot.hh"
+#include "radiation_diffusion.hh"
 #include "sedov.hh"
 #include "shock_tube.hh"
 #include "sine_wave.hh"
